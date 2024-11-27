@@ -1,7 +1,16 @@
-import { Field, Int, ObjectType } from "@nestjs/graphql";
+import { Field, ObjectType } from "@nestjs/graphql";
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { AbstracEntity } from "src/common/database/abstract.entity";
 
+@Schema( { versionKey: false } )
 @ObjectType()
-export class User {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+export class User extends AbstracEntity { 
+    @Prop()
+    @Field()
+    email: string;
+
+    @Prop()
+    password: string;
 }
+
+export const UserSchema = SchemaFactory.createForClass( User );
