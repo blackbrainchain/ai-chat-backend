@@ -7,8 +7,9 @@ import { DatabaseModule } from './common/database/database.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { UsersModule } from './users/users.module';
-import { Logger, LoggerModule } from 'nestjs-pino';
+import { LoggerModule } from 'nestjs-pino';
 import { AuthModule } from './auth/auth.module';
+import { ChatsModule } from './chats/chats.module';
 
 @Module({
   imports: [
@@ -24,8 +25,6 @@ import { AuthModule } from './auth/auth.module';
       driver: ApolloDriver,
       autoSchemaFile: true,
     } ),
-    DatabaseModule,
-    UsersModule,
     LoggerModule.forRootAsync( {
       useFactory: ( configService: ConfigService ) => {
         const isProduction = configService.get( 'NODE_ENV' ) === 'production';
@@ -43,7 +42,10 @@ import { AuthModule } from './auth/auth.module';
       },
       inject: [ ConfigService ]
     } ),
-    AuthModule
+    DatabaseModule,
+    UsersModule,
+    AuthModule,
+    ChatsModule
   ],
   controllers: [AppController],
   providers: [AppService],
