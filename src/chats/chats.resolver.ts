@@ -15,7 +15,7 @@ export class ChatsResolver {
 
   @UseGuards( GqlAuthGuard )
   @Mutation(() => Chat)
-  createChat(@Args('createChatInput') createChatInput: CreateChatInput, @CurrentUser() user: TokenPayload) {
+  async createChat(@Args('createChatInput') createChatInput: CreateChatInput, @CurrentUser() user: TokenPayload) {
     return this.chatsService.create(createChatInput, user._id);
   }
 
