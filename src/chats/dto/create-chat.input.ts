@@ -1,25 +1,11 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { Transform } from 'class-transformer';
-import { IsArray, IsBoolean, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import {IsNotEmpty, IsString } from 'class-validator';
 
 @InputType()
 export class CreateChatInput {
 
-  @Field()
-  @Transform(({ value }) => value === 'true' || value === true)
-  @IsBoolean()
-  isPrivate: boolean;
-
-  @Field( { nullable: true } )
+  @Field( )
   @IsNotEmpty()
   @IsString()
-  @IsOptional()
-  name?: string;
-
-  @Field( () => [String], { nullable: true } )
-  @IsArray()
-  @IsString( { each: true } )
-  @IsNotEmpty( { each: true } )
-  @IsOptional()
-  userIds: string [];
+  name: string;
 }

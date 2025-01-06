@@ -3,14 +3,15 @@ import { GqlContextType, GqlExecutionContext } from "@nestjs/graphql";
 import { get } from "http";
 import { User } from "src/users/entities/user.entity";
 
-const getCurrentUserByContext = ( context: ExecutionContext ): User => {
-    if ( context.getType() === 'http' ) {
+const getCurrentUserByContext = (context: ExecutionContext): User => {
+    if (context.getType() === 'http') {
         return context.switchToHttp().getRequest().user;
-    } else if ( context.getType<GqlContextType>() === 'graphql' ) {
-        return GqlExecutionContext.create( context ).getContext().req.user;
+    } else if (context.getType<GqlContextType>() === 'graphql') {
+        return GqlExecutionContext.create(context).getContext().req.user;
     }
 };
 
 export const CurrentUser = createParamDecorator(
-    ( data: unknown, context: ExecutionContext ) => getCurrentUserByContext( context )
+    (_data: unknown, context: ExecutionContext) =>
+        getCurrentUserByContext(context),
 );

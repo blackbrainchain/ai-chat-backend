@@ -1,19 +1,18 @@
 import { Field, ObjectType } from "@nestjs/graphql";
-import { Prop, Schema } from "@nestjs/mongoose";
 import { AbstracEntity } from "src/common/database/abstract.entity";
+import { User } from "src/users/entities/user.entity";
 
 @ObjectType()
-@Schema()
 export class Message extends AbstracEntity {
     @Field()
-    @Prop()
     content: string;
 
     @Field()
-    @Prop()
     createdAt: Date;
 
+    @Field(() => User)
+    user: User;
+
     @Field()
-    @Prop()
-    userId: string;
+    chatId: string;
 }
