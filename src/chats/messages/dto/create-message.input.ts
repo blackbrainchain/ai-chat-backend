@@ -3,11 +3,11 @@ import { IsNotEmpty, IsString } from "class-validator";
 
 @InputType()
 export class CreateMessageInput {
-    @Field()
-    @IsNotEmpty()
-    content: string;
+  @Field()
+  @IsNotEmpty()
+  content: string;
 
-    @Field()
-    @IsNotEmpty()
-    chatId: string;
+  @Field()
+  @IsNotEmpty()
+  chatId: string;
 }

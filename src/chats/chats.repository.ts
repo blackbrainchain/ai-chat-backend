@@ -7,9 +7,9 @@ import { ChatDocument } from './entities/chat.document';
 
 @Injectable()
 export class ChatsRepository extends AbstractRepository<ChatDocument> {
-    protected readonly logger = new Logger(ChatsRepository.name);
+  protected readonly logger = new Logger(ChatsRepository.name);
 
-    constructor(@InjectModel(Chat.name) chatModel: Model<ChatDocument>) {
-        super(chatModel);
-    }
+  constructor(@InjectModel(Chat.name) chatModel: Model<ChatDocument>) {
+    super(chatModel);
+  }
 }

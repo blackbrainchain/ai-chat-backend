@@ -8,13 +8,10 @@ import { CurrentUser } from 'src/auth/current-user.decorator';
 import { TokenPayload } from 'src/auth/token-payload.interface';
 import { GetMessagesArgs } from './dto/get-messages.args';
 import { MessageCreatedArgs } from './dto/message-created.args';
-import { MessageDocument } from './entities/message.document';
 
 @Resolver(() => Message)
 export class MessagesResolver {
-  constructor(
-    private readonly messagesService: MessagesService,
-  ) { }
+  constructor(private readonly messagesService: MessagesService) { }
 
   @Mutation(() => Message)
   @UseGuards(GqlAuthGuard)
@@ -28,8 +25,8 @@ export class MessagesResolver {
   @Query(() => [Message], { name: 'messages' })
   @UseGuards(GqlAuthGuard)
   async getMessages(
-    @Args() getMessageArgs: GetMessagesArgs
-  ): Promise<MessageDocument[]> {
+    @Args() getMessageArgs: GetMessagesArgs,
+  ): Promise<Message[]> {
     return this.messagesService.getMessages(getMessageArgs);
   }
 
@@ -43,9 +40,7 @@ export class MessagesResolver {
       );
     },
   })
-  messageCreated(
-    @Args() _messageCreatedArgs: MessageCreatedArgs
-  ) {
+  messageCreated(@Args() _messageCreatedArgs: MessageCreatedArgs) {
     return this.messagesService.messageCreated();
   }
 }
